@@ -1,27 +1,32 @@
-'*************************************************************
-'** Hello World example 
-'** Copyright (c) 2015 Roku, Inc.  All rights reserved.
-'** Use of the Roku Platform is subject to the Roku SDK Licence Agreement:
-'** https://docs.roku.com/doc/developersdk/en-us
-'*************************************************************
-
 sub Main()
-    print "in showChannelSGScreen"
-    'Indicate this is a Roku SceneGraph application'
-    screen = CreateObject("roSGScreen")
-    m.port = CreateObject("roMessagePort")
-    screen.setMessagePort(m.port)
-
-    'Create a scene and load /components/helloworld.xml'
-    scene = screen.CreateScene("HelloWorld")
-    screen.show()
-
-    while(true)
-        msg = wait(0, m.port)
-        msgType = type(msg)
-        if msgType = "roSGScreenEvent"
-            if msg.isScreenClosed() then return
-        end if
-    end while
+	showChannelSGScreen()
 end sub
+sub showChannelSGScreen()
+print "in showChannelSGScreen"
+	screen = CreateObject("roSGScreen")
+	m.port = CreateObject("roMessagePort")
+	screen.setMessagePort(m.port)
+	scene = screen.CreateScene("mainScene")
 
+
+	screen.show()
+	scene.findNode("leftRectangle").observeField("width", m.port)
+
+	while(true)
+
+		msg = wait(0, m.port)
+		msgType = type(msg)
+
+		if msgType = "roSGScreenEvent"
+
+			if msg.isScreenClosed() then return
+
+		else if msgType = "roSGNodeEvent"
+           print "node "; msg.getNode()
+           print "field name "; msg.getField()
+           print "data "; msg.getData()
+           scene.findNode(msg.getNode()).height = 400
+	   end if
+
+	end while
+end sub

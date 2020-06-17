@@ -1,5 +1,5 @@
 sub init()
-        print "-----------STARTING SCENE GRAPH-----------"
+        print "in showMainScene"
         m.leftRectangle = m.top.findNode("leftRectangle")
         m.leftRectangle.observeField("color", "someFunction")
         m.leftRectangle.observeField("width", "someOtherFunction")

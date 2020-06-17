@@ -10,6 +10,7 @@ print "in showChannelSGScreen"
 	screen.show()
     'Encontrar el nodo y observar el width por el puerto
 	scene.findNode("leftRectangle").observeField("width", m.port)
+    scene.findNode("Video").observeField("control",m.port)
 	while(true)
 		msg = wait(0, m.port)
 		msgType = type(msg)
@@ -20,8 +21,8 @@ print "in showChannelSGScreen"
            print "node "; msg.getNode()
            print "field name "; msg.getField()
            print "data "; msg.getData()
-           scene.findNode(msg.getNode()).height = 400
+           'Establece el alto de la escena 
+           scene.findNode(msg.getNode()).height = 200
 	   end if
-
 	end while
 end sub

@@ -8,5 +8,11 @@
       height="300" 
       color="0xFF0000FF"
       translation="[100,100]" />
+	  <Video 
+	  visible="false" 
+	  translation="[0,0]" 
+	  height="720" 
+	  width="1280" 
+	  id="Video"/>
   </children>
 </component>

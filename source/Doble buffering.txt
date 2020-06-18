@@ -1,0 +1,32 @@
+Doble buffering 
+Sirve con bitmaps y es util cuando estas procesando mas de un bitmap y no quieras que se pierda
+cierta continuidad
+En un solo buffer, solo hay un mapa de bits.Si constantemente se copia una instantánea de este
+bitmap en la pantalla. El peligro es que si está a punto de modificar el bitmap cuando se copia,
+la pantalla podría recibir un mapa de bits parcialmente modificado. 
+El almacenamiento en búfer doble resuelve este problema al tener dos mapas de bits, uno para la 
+pantalla y otro que se puede modificar libremente sin afectar la pantalla. 
+
+La conclusión es que hay muy pocos casos en los que sea apropiado usar una sola pantalla 
+con búfer. A menos que tenga una muy buena razón, siempre debe usar doble búffer.
+
+Screen list and roScreen
+No, no puedes mezclar los dos. El roScreen tiene una pila propia. Todo tendría que hacerse con el 
+uso de la interfaz 2D.
+
+El roScreen implementa la interfaz 2D, así como roBitmap y roRegion. 
+Todos los objetos que implementan la interfaz ifDraw2D forman el 2d. Junto con esos objetos se 
+encuentran roCompositor y roSprite para crear, estratificar y dibujar sprites.
+Un Sprite es simplemente una región específica de un bitmap que desea colocar en algún lugar 
+de la pantalla. Dado que los sprites tienen un orden Z, se pueden colocar en capas. 
+El compositor maneja el dibujo de todos sus sprites en el orden Z definido.
+
+https://community.roku.com/t5/Roku-Developer-Program/single-buffer-vs-double-buffer-roscreen/td-p/403976
+
+Cree un bitmap y dibuje la imagen de fondo, y luego cambie los búffers para mostrar la imagen de 
+fondo y entonces dibujo la imagen de fondo otravez al buffer de atras.
+Esto me permite dibujar las partes de la pantalla que cambian cuando necesitan actualizarse. 
+Pero cuando el screensaver se enciende, obliga a limpiar el búffer trasero.
+
+Lo que esto crea es que cada vez que cambio buffers después de activar el roku desde 
+el screensaver, la mitad de los cuadros mostrados no tienen imagen de fondo.

@@ -2,12 +2,6 @@
 <component name="mainScene" extends="Scene"> 
 <script type="text/brightscript" uri="pkg:/components/mainScene.brs" ></script>
 <children>
-     <Rectangle 
-      id="leftRectangle"
-      width="300"
-      height="300" 
-      color="0xFF0000FF"
-      translation="[100,100]" />
 	  <Video 
 	  visible="false" 
 	  translation="[0,0]" 
